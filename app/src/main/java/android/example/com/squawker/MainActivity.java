@@ -61,6 +61,15 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
         saveDummyData();
 
+        //Get Token
+        // Get token
+        String token = FirebaseInstanceId.getInstance().getToken();
+
+        // Log and toast
+        String msg = getString(R.string.msg_token_fmt, token);
+        Log.d(LOG_TAG, msg);
+        Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
+
     }
 
     private void saveDummyData() {
@@ -119,13 +128,4 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         mAdapter.swapCursor(null);
     }
 
-    public void onTokenClicked(View view) {
-        // Get token
-        String token = FirebaseInstanceId.getInstance().getToken();
-
-        // Log and toast
-        String msg = getString(R.string.msg_token_fmt, token);
-        Log.d(LOG_TAG, msg);
-        Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
-    }
 }
