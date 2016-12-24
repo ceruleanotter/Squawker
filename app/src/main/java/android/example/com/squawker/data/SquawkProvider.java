@@ -24,7 +24,7 @@ public final class SquawkProvider {
         @ContentUri(
                 path = "messages",
                 type = "vnd.android.cursor.dir/messages",
-                defaultSort = SquawkContract.COLUMN_DATE + " ASC")
+                defaultSort = SquawkContract.COLUMN_DATE + " DESC")
         public static final Uri CONTENT_URI = Uri.parse("content://" + AUTHORITY + "/messages");
     }
 }
