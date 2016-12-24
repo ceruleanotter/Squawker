@@ -53,8 +53,43 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         //Load it up
         getSupportLoaderManager().initLoader(LOADER_ID_MESSAGES, null, this);
 
+        saveDummyData();
     }
 
+    private void saveDummyData() {
+        AsyncTask saveDummyDataTask = new AsyncTask() {
+            String[] dummyNames = {
+                    "TheRealLyla","TheRealAsser","TheRealCezanne","TheRealJLin","TheRealNikita"
+            };
+            String[] dummyMessages = {
+                    "Hello world", "LAWL right!", "I love java", "What a world we live in!",
+                    "Merry Christmas", "Happy holidays"
+            };
+
+            private String pickRandom(String[] arr) {
+                int pos = (int) Math.random()*arr.length;
+                return arr[pos];
+            }
+
+
+            @Override
+            protected Object doInBackground(Object[] objects) {
+                ContentValues[] dummyData = new ContentValues[10];
+
+                for (int i = 0; i < 10; i++) {
+                    ContentValues cv = new ContentValues();
+                    cv.put(SquawkContract.COLUMN_AUTHOR, pickRandom(dummyNames));
+                    cv.put(SquawkContract.COLUMN_MESSAGE, pickRandom(dummyMessages));
+                    cv.put(SquawkContract.COLUMN_DATE, System.currentTimeMillis());
+                    dummyData[i] = cv;
+                }
+
+                getContentResolver().bulkInsert(SquawkProvider.SquawkMessages.CONTENT_URI, dummyData);
+                return null;
+            }
+        };
+        saveDummyDataTask.execute();
+    }
 
 
 
