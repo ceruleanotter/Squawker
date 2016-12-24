@@ -67,13 +67,14 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             };
 
             private String pickRandom(String[] arr) {
-                int pos = (int) Math.random()*arr.length;
+                int pos = (int) (Math.random()*arr.length);
                 return arr[pos];
             }
 
 
             @Override
             protected Object doInBackground(Object[] objects) {
+                getContentResolver().delete(SquawkProvider.SquawkMessages.CONTENT_URI, null, null);
                 ContentValues[] dummyData = new ContentValues[10];
 
                 for (int i = 0; i < 10; i++) {
