@@ -1,17 +1,35 @@
 package android.example.com.squawker;
 
+import android.content.ContentValues;
+import android.database.Cursor;
+import android.example.com.squawker.data.SquawkContract;
+import android.example.com.squawker.data.SquawkProvider;
+import android.os.AsyncTask;
 import android.support.v4.app.LoaderManager;
+import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
-public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks {
+public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
+    private static final int LOADER_ID_MESSAGES = 0;
     RecyclerView mRecyclerView;
     LinearLayoutManager mLayoutManager;
     SquawkAdapter mAdapter;
+
+    static final String[] MESSEGES_PROJECTION =
+            {
+                    SquawkContract.COLUMN_AUTHOR,
+                    SquawkContract.COLUMN_MESSAGE,
+                    SquawkContract.COLUMN_DATE
+            };
+
+    static final int COL_NUM_AUTHOR = 0;
+    static final int COL_NUM_MESSAGE = 1;
+    static final int COL_NUM_DATE = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,20 +49,30 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         // specify an adapter (see also next example)
         mAdapter = new SquawkAdapter();
         mRecyclerView.setAdapter(mAdapter);
-    }
 
-    @Override
-    public Loader onCreateLoader(int id, Bundle args) {
-        return null;
-    }
-
-    @Override
-    public void onLoadFinished(Loader loader, Object data) {
+        //Load it up
+        getSupportLoaderManager().initLoader(LOADER_ID_MESSAGES, null, this);
 
     }
 
-    @Override
-    public void onLoaderReset(Loader loader) {
 
+
+
+    @Override
+    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+
+        return new CursorLoader(this, SquawkProvider.SquawkMessages.CONTENT_URI,
+                MESSEGES_PROJECTION, null, null, null);
+    }
+
+    @Override
+    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+        mAdapter.swapCursor(data);
+
+    }
+
+    @Override
+    public void onLoaderReset(Loader<Cursor> loader) {
+        mAdapter.swapCursor(null);
     }
 }
