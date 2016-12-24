@@ -32,4 +32,9 @@ dependencies {
     //compile 'net.simonvt.schematic:schematic:0.6.3'
     apt 'net.simonvt.schematic:schematic-compiler:0.6.3'
     compile 'net.simonvt.schematic:schematic:0.6.3'
+
+    // Firebase dependency
+    compile 'com.google.firebase:firebase-messaging:10.0.1'
 }
+
+apply plugin: 'com.google.gms.google-services'
