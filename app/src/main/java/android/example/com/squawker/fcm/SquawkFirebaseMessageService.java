@@ -65,7 +65,7 @@ public class SquawkFirebaseMessageService extends FirebaseMessagingService {
     private void insertSquawk(Map<String, String> data) {
         ContentValues newMessage = new ContentValues();
         newMessage.put(SquawkContract.COLUMN_AUTHOR, data.get(SquawkContract.COLUMN_AUTHOR));
-        newMessage.put(SquawkContract.COLUMN_MESSAGE, data.get(SquawkContract.COLUMN_MESSAGE));
+        newMessage.put(SquawkContract.COLUMN_MESSAGE, data.get(SquawkContract.COLUMN_MESSAGE).trim());
         newMessage.put(SquawkContract.COLUMN_DATE, data.get(SquawkContract.COLUMN_DATE));
         getContentResolver().insert(SquawkProvider.SquawkMessages.CONTENT_URI, newMessage);
     }
