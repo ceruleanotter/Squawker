@@ -1,5 +1,6 @@
-package android.example.com.squawker;
+package android.example.com.squawker.settings;
 
+import android.example.com.squawker.R;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;

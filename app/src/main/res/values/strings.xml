@@ -2,4 +2,22 @@
     <string name="app_name">Squawker</string>
 
     <string name="msg_token_fmt" translatable="false">InstanceID Token: %s</string>
+
+    <string name="pref_key_switch_asser">pref_key_asser</string>
+    <string name="pref_key_switch_cezanne">pref_key_cezanne</string>
+    <string name="pref_key_switch_jlin">pref_key_jlin</string>
+    <string name="pref_key_switch_lyla">pref_key_lyla</string>
+    <string name="pref_key_switch_nikita">pref_key_nikita</string>
+
+    <string name="pref_title_switch_asser">Asser</string>
+    <string name="pref_title_switch_cezanne">Cezanne</string>
+    <string name="pref_title_switch_jlin">Jessica</string>
+    <string name="pref_title_switch_lyla">Lyla</string>
+    <string name="pref_title_switch_nikita">Nikita</string>
+
+
+
+    <string name="pref_summary_not_following">Not Following</string>
+    <string name="pref_summary_following">Following</string>
+    <string name="menu_title_settings">Settings</string>
 </resources>
