@@ -1,8 +1,8 @@
 package android.example.com.squawker;
 
-import android.content.Context;
 import android.database.Cursor;
 import android.example.com.squawker.views.CircularImageView;
+import android.os.Handler;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,9 +19,13 @@ import java.util.Date;
 
 public class SquawkAdapter extends RecyclerView.Adapter<SquawkAdapter.SquawkViewHolder> {
 
+
     private Cursor mData;
     private static SimpleDateFormat sDateFormat = new SimpleDateFormat("dd MMM");
 
+    private static final long DAY_MILLIS = 24*60*60*1000;
+    private static final long HOUR_MILLIS = 60 * 60 * 1000;
+    private static final long MINUTE_MILLIS = 1000 * 60;
 
     @Override
     public SquawkViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -29,6 +33,20 @@ public class SquawkAdapter extends RecyclerView.Adapter<SquawkAdapter.SquawkView
                 .inflate(R.layout.squawk_list_item, parent, false);
         // set the view's size, margins, paddings and layout parameters
         SquawkViewHolder vh = new SquawkViewHolder(v);
+
+
+
+        // To update time stamps
+        final Handler handler = new Handler();
+
+        handler.postDelayed( new Runnable() {
+
+            @Override
+            public void run() {
+                SquawkAdapter.this.notifyDataSetChanged();
+                handler.postDelayed( this, 60 * 1000 );
+            }
+        }, 60 * 1000 );
         return vh;
     }
 
@@ -42,7 +60,20 @@ public class SquawkAdapter extends RecyclerView.Adapter<SquawkAdapter.SquawkView
         // Get the date for displaying
         long dateMillis = mData.getLong(MainActivity.COL_NUM_DATE);
         Date dateDate = new Date(dateMillis);
+
         String date = sDateFormat.format(dateDate);
+        long now = System.currentTimeMillis();
+        if(dateDate.getTime() - now < (DAY_MILLIS)) {
+            if (dateDate.getTime() - now < (HOUR_MILLIS)) {
+                long minutes = Math.round((now - dateDate.getTime())/ MINUTE_MILLIS);
+                date = String.valueOf(minutes) + "m";
+            } else {
+                long minutes = Math.round((now - dateDate.getTime())/HOUR_MILLIS);
+                date = String.valueOf(minutes) + "h";
+            }
+        }
+
+        date = "\u2022 " + date;
 
         holder.messageTextView.setText(message);
         holder.authorTextView.setText(author);
