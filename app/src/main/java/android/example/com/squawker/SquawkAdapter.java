@@ -23,7 +23,7 @@ public class SquawkAdapter extends RecyclerView.Adapter<SquawkAdapter.SquawkView
     private Cursor mData;
     private static SimpleDateFormat sDateFormat = new SimpleDateFormat("dd MMM");
 
-    private static final long DAY_MILLIS = 24*60*60*1000;
+    private static final long DAY_MILLIS = 24 * 60 * 60 * 1000;
     private static final long HOUR_MILLIS = 60 * 60 * 1000;
     private static final long MINUTE_MILLIS = 1000 * 60;
 
@@ -34,19 +34,17 @@ public class SquawkAdapter extends RecyclerView.Adapter<SquawkAdapter.SquawkView
         // set the view's size, margins, paddings and layout parameters
         SquawkViewHolder vh = new SquawkViewHolder(v);
 
-
-
         // To update time stamps
         final Handler handler = new Handler();
 
-        handler.postDelayed( new Runnable() {
+        handler.postDelayed(new Runnable() {
 
             @Override
             public void run() {
                 SquawkAdapter.this.notifyDataSetChanged();
-                handler.postDelayed( this, 60 * 1000 );
+                handler.postDelayed(this, 60 * 1000);
             }
-        }, 60 * 1000 );
+        }, 60 * 1000);
         return vh;
     }
 
@@ -63,12 +61,12 @@ public class SquawkAdapter extends RecyclerView.Adapter<SquawkAdapter.SquawkView
 
         String date = sDateFormat.format(dateDate);
         long now = System.currentTimeMillis();
-        if(dateDate.getTime() - now < (DAY_MILLIS)) {
+        if (dateDate.getTime() - now < (DAY_MILLIS)) {
             if (dateDate.getTime() - now < (HOUR_MILLIS)) {
-                long minutes = Math.round((now - dateDate.getTime())/ MINUTE_MILLIS);
+                long minutes = Math.round((now - dateDate.getTime()) / MINUTE_MILLIS);
                 date = String.valueOf(minutes) + "m";
             } else {
-                long minutes = Math.round((now - dateDate.getTime())/HOUR_MILLIS);
+                long minutes = Math.round((now - dateDate.getTime()) / HOUR_MILLIS);
                 date = String.valueOf(minutes) + "h";
             }
         }
@@ -80,19 +78,19 @@ public class SquawkAdapter extends RecyclerView.Adapter<SquawkAdapter.SquawkView
         holder.dateTextView.setText(date);
 
         switch (author) {
-            case "TheRealAsser" :
+            case "TheRealAsser":
                 holder.authorCircularImageView.setImageResource(R.drawable.asser);
                 break;
-            case "TheRealCezanne" :
+            case "TheRealCezanne":
                 holder.authorCircularImageView.setImageResource(R.drawable.cezanne);
                 break;
-            case "TheRealJlin" :
+            case "TheRealJlin":
                 holder.authorCircularImageView.setImageResource(R.drawable.jlin);
                 break;
-            case "TheRealLyla" :
+            case "TheRealLyla":
                 holder.authorCircularImageView.setImageResource(R.drawable.lyla);
                 break;
-            case "TheRealNikita" :
+            case "TheRealNikita":
                 holder.authorCircularImageView.setImageResource(R.drawable.nikita);
                 break;
         }
@@ -120,7 +118,8 @@ public class SquawkAdapter extends RecyclerView.Adapter<SquawkAdapter.SquawkView
             authorTextView = (TextView) layoutView.findViewById(R.id.text_view_author);
             messageTextView = (TextView) layoutView.findViewById(R.id.text_view_message);
             dateTextView = (TextView) layoutView.findViewById(R.id.text_view_date);
-            authorCircularImageView = (CircularImageView) layoutView.findViewById(R.id.circular_image_view_author);
+            authorCircularImageView = (CircularImageView) layoutView.findViewById(
+                    R.id.circular_image_view_author);
         }
     }
 }

@@ -6,7 +6,7 @@ android {
     buildToolsVersion "25.0.1"
     defaultConfig {
         applicationId "android.example.com.squawker"
-        minSdkVersion 15
+        minSdkVersion 16
         targetSdkVersion 25
         versionCode 1
         versionName "1.0"
@@ -28,8 +28,8 @@ dependencies {
     compile 'com.android.support:appcompat-v7:25.1.0'
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:recyclerview-v7:25.1.0'
-    //apt 'net.simonvt.schematic:schematic-compiler:0.6.3'
-    //compile 'net.simonvt.schematic:schematic:0.6.3'
+
+    // Schematic dependencies for ContentProvider
     apt 'net.simonvt.schematic:schematic-compiler:0.6.3'
     compile 'net.simonvt.schematic:schematic:0.6.3'
 
@@ -37,7 +37,7 @@ dependencies {
     compile 'com.google.firebase:firebase-messaging:10.0.1'
 
     // Preferences Dependencies
-    compile 'com.android.support:preference-v7:25.0.1'
+    compile 'com.android.support:preference-v7:25.1.0'
 }
 
 apply plugin: 'com.google.gms.google-services'

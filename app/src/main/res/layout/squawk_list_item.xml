@@ -14,27 +14,27 @@
         android:id="@+id/circular_image_view_author"
         android:layout_width="48dp"
         android:layout_height="48dp"
-        android:src="@drawable/lyla"/>
+        android:src="@drawable/lyla" />
 
     <TextView
         android:id="@+id/text_view_author"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toRightOf="@id/circular_image_view_author"
+        android:fontFamily="sans-serif-medium"
         android:paddingEnd="8dp"
         android:paddingLeft="8dp"
         android:paddingStart="8dp"
-        android:textSize="14sp"
-        android:fontFamily="sans-serif-medium"
-        android:textColor="@color/colorText"/>
+        android:textColor="@color/colorText"
+        android:textSize="14sp" />
 
     <TextView
         android:id="@+id/text_view_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toRightOf="@id/text_view_author"
-        android:textStyle="italic"
-        android:textColor="@color/colorSecondaryText"/>
+        android:textColor="@color/colorSecondaryText"
+        android:textStyle="italic" />
 
 
     <TextView
@@ -43,10 +43,10 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@id/text_view_author"
         android:layout_below="@id/text_view_author"
-        android:textColor="@color/colorText"
         android:paddingEnd="8dp"
         android:paddingLeft="8dp"
         android:paddingStart="8dp"
+        android:textColor="@color/colorText"
         android:textSize="14sp" />
 
 

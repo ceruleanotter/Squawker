@@ -1,10 +1,10 @@
 package android.example.com.squawker.settings;
 
 import android.example.com.squawker.R;
+import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.MenuItem;
 
 public class SettingsActivity extends AppCompatActivity {

@@ -1,20 +1,16 @@
 package android.example.com.squawker;
 
-import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
 import android.example.com.squawker.data.SquawkContract;
 import android.example.com.squawker.data.SquawkProvider;
 import android.example.com.squawker.settings.SettingsActivity;
-import android.example.com.squawker.sync.SquawkerSyncDatabaseTask;
 import android.example.com.squawker.sync.SyncSquawksIntentService;
-import android.os.AsyncTask;
+import android.os.Bundle;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -22,7 +18,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import com.google.firebase.iid.FirebaseInstanceId;
 
@@ -36,12 +31,11 @@ public class MainActivity extends AppCompatActivity implements
     LinearLayoutManager mLayoutManager;
     SquawkAdapter mAdapter;
 
-    static final String[] MESSEGES_PROJECTION =
-            {
-                    SquawkContract.COLUMN_AUTHOR,
-                    SquawkContract.COLUMN_MESSAGE,
-                    SquawkContract.COLUMN_DATE
-            };
+    static final String[] MESSEGES_PROJECTION = {
+            SquawkContract.COLUMN_AUTHOR,
+            SquawkContract.COLUMN_MESSAGE,
+            SquawkContract.COLUMN_DATE
+    };
 
     static final int COL_NUM_AUTHOR = 0;
     static final int COL_NUM_MESSAGE = 1;
@@ -63,7 +57,8 @@ public class MainActivity extends AppCompatActivity implements
         mRecyclerView.setLayoutManager(mLayoutManager);
 
         // Add dividers
-        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(mRecyclerView.getContext(),
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(
+                mRecyclerView.getContext(),
                 mLayoutManager.getOrientation());
         mRecyclerView.addItemDecoration(dividerItemDecoration);
 

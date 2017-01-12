@@ -13,9 +13,10 @@ import android.widget.ImageView;
  * Created by lyla on 1/11/17.
  */
 
-public class CircularImageView extends ImageView{
+public class CircularImageView extends ImageView {
     Paint mPaint;
     Shader mShader;
+
     public CircularImageView(Context context) {
         super(context);
     }
@@ -34,12 +35,11 @@ public class CircularImageView extends ImageView{
     }
 
 
-
     @Override
     public void setImageResource(int resId) {
         super.setImageResource(resId);
         mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        mShader = new BitmapShader(((BitmapDrawable)getDrawable()).getBitmap(),
+        mShader = new BitmapShader(((BitmapDrawable) getDrawable()).getBitmap(),
                 Shader.TileMode.CLAMP, Shader.TileMode.CLAMP);
         mPaint.setShader(mShader);
 

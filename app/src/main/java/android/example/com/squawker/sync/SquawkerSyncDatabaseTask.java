@@ -3,11 +3,8 @@ package android.example.com.squawker.sync;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.Intent;
 import android.example.com.squawker.data.SquawkContract;
 import android.example.com.squawker.data.SquawkProvider;
-import android.support.annotation.NonNull;
-import android.support.v4.widget.SwipeRefreshLayout;
 
 import org.json.JSONArray;
 import org.json.JSONException;

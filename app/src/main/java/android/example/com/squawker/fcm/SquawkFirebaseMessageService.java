@@ -2,7 +2,6 @@ package android.example.com.squawker.fcm;
 
 import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.app.Service;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
@@ -25,7 +24,7 @@ import java.util.Map;
  */
 public class SquawkFirebaseMessageService extends FirebaseMessagingService {
 
-    private static final String TAG = "SquawkMsgService";
+    private static String LOG_TAG = SquawkFirebaseMessageService.class.getSimpleName();
 
     /**
      * Called when message is received.
@@ -34,27 +33,35 @@ public class SquawkFirebaseMessageService extends FirebaseMessagingService {
      */
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
-        // There are two types of messages data messages and notification messages. Data messages are handled
-        // here in onMessageReceived whether the app is in the foreground or background. Data messages are the type
-        // traditionally used with GCM. Notification messages are only received here in onMessageReceived when the app
-        // is in the foreground. When the app is in the background an automatically generated notification is displayed.
-        // When the user taps on the notification they are returned to the app. Messages containing both notification
-        // and data payloads are treated as notification messages. The Firebase console always sends notification
+        // There are two types of messages data messages and notification messages. Data messages
+        // are handled
+        // here in onMessageReceived whether the app is in the foreground or background. Data
+        // messages are the type
+        // traditionally used with GCM. Notification messages are only received here in
+        // onMessageReceived when the app
+        // is in the foreground. When the app is in the background an automatically generated
+        // notification is displayed.
+        // When the user taps on the notification they are returned to the app. Messages
+        // containing both notification
+        // and data payloads are treated as notification messages. The Firebase console always
+        // sends notification
         // messages. For more see: https://firebase.google.com/docs/cloud-messaging/concept-options
 
 
         // Not getting messages here? See why this may be: https://goo.gl/39bRNJ
-        Log.d(TAG, "From: " + remoteMessage.getFrom());
+        Log.d(LOG_TAG, "From: " + remoteMessage.getFrom());
 
         // Check if message contains a data payload.
         if (remoteMessage.getData().size() > 0) {
-            Log.d(TAG, "Message data payload: " + remoteMessage.getData());
+            Log.d(LOG_TAG, "Message data payload: " + remoteMessage.getData());
         }
 
         // Check if message contains a notification payload.
         if (remoteMessage.getNotification() != null) {
-            Log.d(TAG, "Message Notification Body: " + remoteMessage.getNotification().getBody());
-            Log.d(TAG, "Message Notification Title: " + remoteMessage.getNotification().getTitle());
+            Log.d(LOG_TAG,
+                    "Message Notification Body: " + remoteMessage.getNotification().getBody());
+            Log.d(LOG_TAG,
+                    "Message Notification Title: " + remoteMessage.getNotification().getTitle());
             //sendNotification(remoteMessage.getNotification().getBody());
         }
 
@@ -65,7 +72,8 @@ public class SquawkFirebaseMessageService extends FirebaseMessagingService {
     private void insertSquawk(Map<String, String> data) {
         ContentValues newMessage = new ContentValues();
         newMessage.put(SquawkContract.COLUMN_AUTHOR, data.get(SquawkContract.COLUMN_AUTHOR));
-        newMessage.put(SquawkContract.COLUMN_MESSAGE, data.get(SquawkContract.COLUMN_MESSAGE).trim());
+        newMessage.put(SquawkContract.COLUMN_MESSAGE,
+                data.get(SquawkContract.COLUMN_MESSAGE).trim());
         newMessage.put(SquawkContract.COLUMN_DATE, data.get(SquawkContract.COLUMN_DATE));
         getContentResolver().insert(SquawkProvider.SquawkMessages.CONTENT_URI, newMessage);
     }
@@ -82,7 +90,7 @@ public class SquawkFirebaseMessageService extends FirebaseMessagingService {
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent,
                 PendingIntent.FLAG_ONE_SHOT);
 
-        Uri defaultSoundUri= RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+        Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
                 .setSmallIcon(R.mipmap.ic_launcher)
                 .setContentTitle("FCM Message")
