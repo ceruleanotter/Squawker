@@ -6,7 +6,7 @@
             android:id="@+id/action_settings"
             android:orderInCategory="200"
             android:title="@string/menu_title_settings"
-            android:icon="@drawable/ic_settings"
+            android:icon="@drawable/ic_follow"
             app:showAsAction="ifRoom"
             />
 </menu>

@@ -1,6 +1,8 @@
 package android.example.com.squawker;
 
+import android.content.Context;
 import android.database.Cursor;
+import android.example.com.squawker.views.CircularImageView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +21,7 @@ public class SquawkAdapter extends RecyclerView.Adapter<SquawkAdapter.SquawkView
 
     private Cursor mData;
     private static SimpleDateFormat sDateFormat = new SimpleDateFormat("dd MMM");
+
 
     @Override
     public SquawkViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -44,6 +47,24 @@ public class SquawkAdapter extends RecyclerView.Adapter<SquawkAdapter.SquawkView
         holder.messageTextView.setText(message);
         holder.authorTextView.setText(author);
         holder.dateTextView.setText(date);
+
+        switch (author) {
+            case "TheRealAsser" :
+                holder.authorCircularImageView.setImageResource(R.drawable.asser);
+                break;
+            case "TheRealCezanne" :
+                holder.authorCircularImageView.setImageResource(R.drawable.cezanne);
+                break;
+            case "TheRealJlin" :
+                holder.authorCircularImageView.setImageResource(R.drawable.jlin);
+                break;
+            case "TheRealLyla" :
+                holder.authorCircularImageView.setImageResource(R.drawable.lyla);
+                break;
+            case "TheRealNikita" :
+                holder.authorCircularImageView.setImageResource(R.drawable.nikita);
+                break;
+        }
     }
 
     @Override
@@ -61,12 +82,14 @@ public class SquawkAdapter extends RecyclerView.Adapter<SquawkAdapter.SquawkView
         final TextView authorTextView;
         final TextView messageTextView;
         final TextView dateTextView;
+        final CircularImageView authorCircularImageView;
 
         public SquawkViewHolder(View layoutView) {
             super(layoutView);
             authorTextView = (TextView) layoutView.findViewById(R.id.text_view_author);
             messageTextView = (TextView) layoutView.findViewById(R.id.text_view_message);
             dateTextView = (TextView) layoutView.findViewById(R.id.text_view_date);
+            authorCircularImageView = (CircularImageView) layoutView.findViewById(R.id.circular_image_view_author);
         }
     }
 }

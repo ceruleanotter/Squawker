@@ -20,4 +20,5 @@
     <string name="pref_summary_not_following">Not Following</string>
     <string name="pref_summary_following">Following</string>
     <string name="menu_title_settings">Settings</string>
+    <string name="author_asser">TheRealAsser</string>
 </resources>
