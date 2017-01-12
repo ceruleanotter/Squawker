@@ -78,14 +78,11 @@ public class MainActivity extends AppCompatActivity implements
         SyncSquawksIntentService.startImmediateSync(this);
 
         //Get Token
-        // Get token
         String token = FirebaseInstanceId.getInstance().getToken();
 
-        // Log and toast
+        // Toast
         String msg = getString(R.string.msg_token_fmt, token);
         Log.d(LOG_TAG, msg);
-        Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
-        int layout = R.layout.activity_main;
 
     }
 
