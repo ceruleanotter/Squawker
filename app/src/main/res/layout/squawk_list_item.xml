@@ -25,18 +25,16 @@
         android:paddingLeft="8dp"
         android:paddingStart="8dp"
         android:textSize="14sp"
-        android:fontFamily="sans-serif-medium"/>
+        android:fontFamily="sans-serif-medium"
+        android:textColor="@color/colorText"/>
 
     <TextView
         android:id="@+id/text_view_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toRightOf="@id/text_view_author"
-        android:paddingEnd="8dp"
-        android:paddingLeft="8dp"
-        android:paddingStart="8dp"
         android:textStyle="italic"
-        android:textColor="#9E9E9E"/>
+        android:textColor="@color/colorSecondaryText"/>
 
 
     <TextView
@@ -45,7 +43,7 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@id/text_view_author"
         android:layout_below="@id/text_view_author"
-
+        android:textColor="@color/colorText"
         android:paddingEnd="8dp"
         android:paddingLeft="8dp"
         android:paddingStart="8dp"
