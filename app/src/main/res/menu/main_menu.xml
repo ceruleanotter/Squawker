@@ -9,4 +9,11 @@
             android:icon="@drawable/ic_follow"
             app:showAsAction="ifRoom"
             />
+        <item
+            android:id="@+id/action_refresh"
+            android:orderInCategory="200"
+            android:title="@string/menu_title_settings"
+            android:icon="@android:drawable/ic_menu_rotate"
+            app:showAsAction="ifRoom"
+            />
 </menu>

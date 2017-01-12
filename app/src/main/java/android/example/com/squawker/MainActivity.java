@@ -6,10 +6,13 @@ import android.database.Cursor;
 import android.example.com.squawker.data.SquawkContract;
 import android.example.com.squawker.data.SquawkProvider;
 import android.example.com.squawker.settings.SettingsActivity;
+import android.example.com.squawker.sync.SquawkerSyncDatabaseTask;
+import android.example.com.squawker.sync.SyncSquawksIntentService;
 import android.os.AsyncTask;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
@@ -19,7 +22,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Toast;
 
 import com.google.firebase.iid.FirebaseInstanceId;
@@ -29,6 +31,7 @@ public class MainActivity extends AppCompatActivity implements
 
     private static String LOG_TAG = MainActivity.class.getSimpleName();
     private static final int LOADER_ID_MESSAGES = 0;
+
     RecyclerView mRecyclerView;
     LinearLayoutManager mLayoutManager;
     SquawkAdapter mAdapter;
@@ -67,9 +70,6 @@ public class MainActivity extends AppCompatActivity implements
         // specify an adapter (see also next example)
         mAdapter = new SquawkAdapter();
         mRecyclerView.setAdapter(mAdapter);
-
-
-
 
         //Load it up
         getSupportLoaderManager().initLoader(LOADER_ID_MESSAGES, null, this);
@@ -145,6 +145,10 @@ public class MainActivity extends AppCompatActivity implements
             startActivity(startSettingsActivity);
             return true;
         }
+        if (id == R.id.action_refresh) {
+            onRefresh();
+            return true;
+        }
         return super.onOptionsItemSelected(item);
     }
 
@@ -166,4 +170,9 @@ public class MainActivity extends AppCompatActivity implements
         mAdapter.swapCursor(null);
     }
 
+    public void onRefresh() {
+        Log.e("MainActivity", "REFRESHED");
+        SyncSquawksIntentService.startImmediateSync(this);
+
+    }
 }

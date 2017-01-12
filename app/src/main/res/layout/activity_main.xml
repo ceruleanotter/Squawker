@@ -5,9 +5,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="android.example.com.squawker.MainActivity">
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recycler_view_squawks"
-        android:scrollbars="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+    
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler_view_squawks"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="vertical" />
+
 </RelativeLayout>
