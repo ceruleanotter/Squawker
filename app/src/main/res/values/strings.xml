@@ -3,11 +3,11 @@
 
     <string name="msg_token_fmt" translatable="false">InstanceID Token: %s</string>
 
-    <string name="pref_key_switch_asser">pref_key_asser</string>
-    <string name="pref_key_switch_cezanne">pref_key_cezanne</string>
-    <string name="pref_key_switch_jlin">pref_key_jlin</string>
-    <string name="pref_key_switch_lyla">pref_key_lyla</string>
-    <string name="pref_key_switch_nikita">pref_key_nikita</string>
+    <string name="pref_key_switch_asser">key_asser</string>
+    <string name="pref_key_switch_cezanne">key_cezanne</string>
+    <string name="pref_key_switch_jlin">key_jlin</string>
+    <string name="pref_key_switch_lyla">key_lyla</string>
+    <string name="pref_key_switch_nikita">key_nikita</string>
 
     <string name="pref_title_switch_asser">Asser</string>
     <string name="pref_title_switch_cezanne">Cezanne</string>

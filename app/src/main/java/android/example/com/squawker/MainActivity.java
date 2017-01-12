@@ -23,7 +23,8 @@ import android.widget.Toast;
 
 import com.google.firebase.iid.FirebaseInstanceId;
 
-public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
+public class MainActivity extends AppCompatActivity implements
+        LoaderManager.LoaderCallbacks<Cursor> {
 
     private static String LOG_TAG = MainActivity.class.getSimpleName();
     private static final int LOADER_ID_MESSAGES = 0;
@@ -81,7 +82,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     private void saveDummyData() {
         AsyncTask saveDummyDataTask = new AsyncTask() {
             String[] dummyNames = {
-                    "TheRealLyla","TheRealAsser","TheRealCezanne","TheRealJLin","TheRealNikita"
+                    "TheRealLyla", "TheRealAsser", "TheRealCezanne", "TheRealJLin", "TheRealNikita"
             };
             String[] dummyMessages = {
                     "Hello world", "LAWL right!", "I love java", "What a world we live in!",
@@ -89,7 +90,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             };
 
             private String pickRandom(String[] arr) {
-                int pos = (int) (Math.random()*arr.length);
+                int pos = (int) (Math.random() * arr.length);
                 return arr[pos];
             }
 
@@ -107,13 +108,13 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                     dummyData[i] = cv;
                 }
 
-                getContentResolver().bulkInsert(SquawkProvider.SquawkMessages.CONTENT_URI, dummyData);
+                getContentResolver().bulkInsert(SquawkProvider.SquawkMessages.CONTENT_URI,
+                        dummyData);
                 return null;
             }
         };
         saveDummyDataTask.execute();
     }
-
 
 
     @Override
