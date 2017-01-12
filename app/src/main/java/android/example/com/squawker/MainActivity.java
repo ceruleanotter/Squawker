@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity implements
         mAdapter = new SquawkAdapter();
         mRecyclerView.setAdapter(mAdapter);
 
-        //Load it up
+        // Load it up
         getSupportLoaderManager().initLoader(LOADER_ID_MESSAGES, null, this);
 
         // Load initial messages
