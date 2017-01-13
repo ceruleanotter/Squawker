@@ -9,6 +9,7 @@ import android.example.com.squawker.MainActivity;
 import android.example.com.squawker.R;
 import android.example.com.squawker.data.SquawkContract;
 import android.example.com.squawker.data.SquawkProvider;
+import android.example.com.squawker.sync.SyncSquawksIntentService;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.support.v4.app.NotificationCompat;
@@ -54,47 +55,56 @@ public class SquawkFirebaseMessageService extends FirebaseMessagingService {
         // Check if message contains a data payload.
         if (remoteMessage.getData().size() > 0) {
             Log.e(LOG_TAG, "Message data payload: " + remoteMessage.getData());
+            sendNotification(remoteMessage.getData());
         }
 
         // Check if message contains a notification payload.
-        if (remoteMessage.getNotification() != null) {
+        /*if (remoteMessage.getNotification() != null) {
             Log.e(LOG_TAG,
                     "Message Notification Body: " + remoteMessage.getNotification().getBody());
             Log.e(LOG_TAG,
                     "Message Notification Title: " + remoteMessage.getNotification().getTitle());
-            //sendNotification(remoteMessage.getNotification().getBody());
-        }
 
-        insertSquawk(remoteMessage.getData());
+        }*/
+
+        //insertSquawk(remoteMessage.getData());
+        SyncSquawksIntentService.startImmediateSync(this);
 
     }
-
-    private void insertSquawk(Map<String, String> data) {
-        ContentValues newMessage = new ContentValues();
-        newMessage.put(SquawkContract.COLUMN_AUTHOR, data.get(SquawkContract.COLUMN_AUTHOR));
-        newMessage.put(SquawkContract.COLUMN_MESSAGE,
-                data.get(SquawkContract.COLUMN_MESSAGE).trim());
-        newMessage.put(SquawkContract.COLUMN_DATE, data.get(SquawkContract.COLUMN_DATE));
-        getContentResolver().insert(SquawkProvider.SquawkMessages.CONTENT_URI, newMessage);
-    }
+//
+//    private void insertSquawk(Map<String, String> data) {
+//        ContentValues newMessage = new ContentValues();
+//        newMessage.put(SquawkContract.COLUMN_AUTHOR, data.get(SquawkContract.COLUMN_AUTHOR));
+//        newMessage.put(SquawkContract.COLUMN_MESSAGE,
+//                data.get(SquawkContract.COLUMN_MESSAGE).trim());
+//        newMessage.put(SquawkContract.COLUMN_DATE, data.get(SquawkContract.COLUMN_DATE));
+//        getContentResolver().insert(SquawkProvider.SquawkMessages.CONTENT_URI, newMessage);
+//    }
 
 
     /**
      * Create and show a simple notification containing the received FCM message.
-     *
-     * @param messageBody FCM message body received.
+     * @param data
      */
-    private void sendNotification(String messageBody) {
+    private void sendNotification(Map<String, String> data) {
         Intent intent = new Intent(this, MainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent,
                 PendingIntent.FLAG_ONE_SHOT);
 
+        String author = data.get(SquawkContract.COLUMN_AUTHOR);
+        String message = data.get(SquawkContract.COLUMN_MESSAGE);
+
+        if (message.length() > 30) {
+            message = message.substring(0,30) + "\u2026";
+        }
+
+
         Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
                 .setSmallIcon(R.mipmap.ic_launcher)
-                .setContentTitle("FCM Message")
-                .setContentText(messageBody)
+                .setContentTitle("New squawk from " +  author)
+                .setContentText(message)
                 .setAutoCancel(true)
                 .setSound(defaultSoundUri)
                 .setContentIntent(pendingIntent);

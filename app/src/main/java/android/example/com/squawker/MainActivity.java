@@ -86,6 +86,7 @@ public class MainActivity extends AppCompatActivity implements
 
 
 
+        // TODO fix this epic mess
         // Check if this was opened by a Test FCM notification
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
@@ -105,7 +106,7 @@ public class MainActivity extends AppCompatActivity implements
                 Log.e(LOG_TAG, "Sync now");
                 SyncSquawksIntentService.startImmediateSync(this);
             }
-        } 
+        }
 
     }
 

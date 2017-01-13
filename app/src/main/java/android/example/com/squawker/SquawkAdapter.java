@@ -57,18 +57,19 @@ public class SquawkAdapter extends RecyclerView.Adapter<SquawkAdapter.SquawkView
 
         // Get the date for displaying
         long dateMillis = mData.getLong(MainActivity.COL_NUM_DATE);
-        Date dateDate = new Date(dateMillis);
-
-        String date = sDateFormat.format(dateDate);
+        String date = "";
         long now = System.currentTimeMillis();
-        if (dateDate.getTime() - now < (DAY_MILLIS)) {
-            if (dateDate.getTime() - now < (HOUR_MILLIS)) {
-                long minutes = Math.round((now - dateDate.getTime()) / MINUTE_MILLIS);
+        if (now - dateMillis < (DAY_MILLIS)) {
+            if (now - dateMillis < (HOUR_MILLIS)) {
+                long minutes = Math.round((now - dateMillis) / MINUTE_MILLIS);
                 date = String.valueOf(minutes) + "m";
             } else {
-                long minutes = Math.round((now - dateDate.getTime()) / HOUR_MILLIS);
+                long minutes = Math.round((now - dateMillis) / HOUR_MILLIS);
                 date = String.valueOf(minutes) + "h";
             }
+        } else {
+            Date dateDate = new Date(dateMillis);
+            date = sDateFormat.format(dateDate);
         }
 
         date = "\u2022 " + date;

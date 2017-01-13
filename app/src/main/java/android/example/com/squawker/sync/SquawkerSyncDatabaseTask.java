@@ -21,7 +21,7 @@ import java.util.Scanner;
  */
 
 public class SquawkerSyncDatabaseTask {
-    private static final String SQUAWK_MESSAGES_URL = "http://192.168.0.106:8080/messages";
+    private static final String SQUAWK_MESSAGES_URL = "http://192.168.0.111:8080/messages";
 
     synchronized public static void syncWithServer(Context context) {
         String json = null;
