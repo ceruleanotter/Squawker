@@ -37,7 +37,7 @@ public class SquawkFirebaseMessageService extends FirebaseMessagingService {
         // are handled
         // here in onMessageReceived whether the app is in the foreground or background. Data
         // messages are the type
-        // traditionally used with GCM. Notification messages are only received here in
+        // traditionally used with FCM. Notification messages are only received here in
         // onMessageReceived when the app
         // is in the foreground. When the app is in the background an automatically generated
         // notification is displayed.
@@ -49,18 +49,18 @@ public class SquawkFirebaseMessageService extends FirebaseMessagingService {
 
 
         // Not getting messages here? See why this may be: https://goo.gl/39bRNJ
-        Log.d(LOG_TAG, "From: " + remoteMessage.getFrom());
+        Log.e(LOG_TAG, "From: " + remoteMessage.getFrom());
 
         // Check if message contains a data payload.
         if (remoteMessage.getData().size() > 0) {
-            Log.d(LOG_TAG, "Message data payload: " + remoteMessage.getData());
+            Log.e(LOG_TAG, "Message data payload: " + remoteMessage.getData());
         }
 
         // Check if message contains a notification payload.
         if (remoteMessage.getNotification() != null) {
-            Log.d(LOG_TAG,
+            Log.e(LOG_TAG,
                     "Message Notification Body: " + remoteMessage.getNotification().getBody());
-            Log.d(LOG_TAG,
+            Log.e(LOG_TAG,
                     "Message Notification Title: " + remoteMessage.getNotification().getTitle());
             //sendNotification(remoteMessage.getNotification().getBody());
         }

@@ -1,9 +1,11 @@
 package android.example.com.squawker;
 
+import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
 import android.example.com.squawker.data.SquawkContract;
 import android.example.com.squawker.data.SquawkProvider;
+import android.example.com.squawker.fcm.SquawkFirebaseMessageService;
 import android.example.com.squawker.settings.SettingsActivity;
 import android.example.com.squawker.sync.SyncSquawksIntentService;
 import android.os.Bundle;
@@ -20,6 +22,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import com.google.firebase.iid.FirebaseInstanceId;
+
+import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity implements
         LoaderManager.LoaderCallbacks<Cursor> {
@@ -69,15 +73,39 @@ public class MainActivity extends AppCompatActivity implements
         // Load it up
         getSupportLoaderManager().initLoader(LOADER_ID_MESSAGES, null, this);
 
-        // Load initial messages
-        SyncSquawksIntentService.startImmediateSync(this);
-
         //Get Token
         String token = FirebaseInstanceId.getInstance().getToken();
 
         // Toast
         String msg = getString(R.string.msg_token_fmt, token);
         Log.d(LOG_TAG, msg);
+
+        // Load initial messages
+        // TODO only load inital message if empty
+        //SyncSquawksIntentService.startImmediateSync(this);
+
+
+
+        // Check if this was opened by a Test FCM notification
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            if (extras.containsKey("test")) {
+                // TODO is this bad because it's on the main thread?
+
+                ContentValues newMessage = new ContentValues();
+                newMessage.put(SquawkContract.COLUMN_AUTHOR,
+                        extras.getString(SquawkContract.COLUMN_AUTHOR, "null"));
+                newMessage.put(SquawkContract.COLUMN_MESSAGE,
+                        extras.getString(SquawkContract.COLUMN_MESSAGE, "null").trim());
+                newMessage.put(SquawkContract.COLUMN_DATE,
+                        extras.getString(SquawkContract.COLUMN_DATE, "null"));
+                getContentResolver().insert(SquawkProvider.SquawkMessages.CONTENT_URI, newMessage);
+
+            } else if (getIntent().getAction().equals("SYNC_DATA_WITH_SQUAWKER")) {
+                Log.e(LOG_TAG, "Sync now");
+                SyncSquawksIntentService.startImmediateSync(this);
+            }
+        } 
 
     }
 

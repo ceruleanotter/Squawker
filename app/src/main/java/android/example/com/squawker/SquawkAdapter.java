@@ -93,6 +93,8 @@ public class SquawkAdapter extends RecyclerView.Adapter<SquawkAdapter.SquawkView
             case "TheRealNikita":
                 holder.authorCircularImageView.setImageResource(R.drawable.nikita);
                 break;
+            default:
+                holder.authorCircularImageView.setImageResource(R.drawable.test);
         }
     }
 
