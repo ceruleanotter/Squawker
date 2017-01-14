@@ -20,5 +20,6 @@
 
     <string name="menu_title_settings">Following</string>
     <string name="menu_title_refresh">Refresh</string>
+    <string name="notification_message">"New squawk from %1$s"</string>
 
 </resources>

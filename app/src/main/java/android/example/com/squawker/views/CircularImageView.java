@@ -1,3 +1,19 @@
+/*
+* Copyright (C) 2017 The Android Open Source Project
+*
+* Licensed under the Apache License, Version 2.0 (the "License");
+* you may not use this file except in compliance with the License.
+* You may obtain a copy of the License at
+*
+*  	http://www.apache.org/licenses/LICENSE-2.0
+*
+* Unless required by applicable law or agreed to in writing, software
+* distributed under the License is distributed on an "AS IS" BASIS,
+* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+* See the License for the specific language governing permissions and
+* limitations under the License.
+*/
+
 package android.example.com.squawker.views;
 
 import android.content.Context;
@@ -10,9 +26,8 @@ import android.util.AttributeSet;
 import android.widget.ImageView;
 
 /**
- * Created by lyla on 1/11/17.
+ * Creates a circular view for profile images
  */
-
 public class CircularImageView extends ImageView {
     Paint mPaint;
     Shader mShader;
@@ -34,7 +49,11 @@ public class CircularImageView extends ImageView {
         super(context, attrs, defStyleAttr, defStyleRes);
     }
 
-
+    /**
+     * Generates paint and a shader for the image whenever the image is changed
+     *
+     * @param resId Resource ID of the image
+     */
     @Override
     public void setImageResource(int resId) {
         super.setImageResource(resId);
@@ -45,6 +64,9 @@ public class CircularImageView extends ImageView {
 
     }
 
+    /**
+     * Draws the image and clips it to a circle
+     */
     @Override
     public void onDraw(Canvas canvas) {
         if (mPaint != null) {

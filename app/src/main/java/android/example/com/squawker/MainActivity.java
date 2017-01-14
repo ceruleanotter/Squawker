@@ -1,10 +1,26 @@
+/*
+* Copyright (C) 2017 The Android Open Source Project
+*
+* Licensed under the Apache License, Version 2.0 (the "License");
+* you may not use this file except in compliance with the License.
+* You may obtain a copy of the License at
+*
+*  	http://www.apache.org/licenses/LICENSE-2.0
+*
+* Unless required by applicable law or agreed to in writing, software
+* distributed under the License is distributed on an "AS IS" BASIS,
+* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+* See the License for the specific language governing permissions and
+* limitations under the License.
+*/
+
 package android.example.com.squawker;
 
 import android.content.Intent;
 import android.database.Cursor;
-import android.example.com.squawker.data.SquawkContract;
-import android.example.com.squawker.data.SquawkProvider;
-import android.example.com.squawker.settings.SettingsActivity;
+import android.example.com.squawker.provider.SquawkContract;
+import android.example.com.squawker.provider.SquawkProvider;
+import android.example.com.squawker.following.FollowingPreferenceActivity;
 import android.example.com.squawker.sync.SyncSquawksIntentService;
 import android.os.Bundle;
 import android.support.v4.app.LoaderManager;
@@ -31,7 +47,7 @@ public class MainActivity extends AppCompatActivity implements
     LinearLayoutManager mLayoutManager;
     SquawkAdapter mAdapter;
 
-    static final String[] MESSEGES_PROJECTION = {
+    static final String[] MESSAGES_PROJECTION = {
             SquawkContract.COLUMN_AUTHOR,
             SquawkContract.COLUMN_MESSAGE,
             SquawkContract.COLUMN_DATE
@@ -48,11 +64,11 @@ public class MainActivity extends AppCompatActivity implements
 
         mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view_squawks);
 
-        // use this setting to improve performance if you know that changes
+        // Use this setting to improve performance if you know that changes
         // in content do not change the layout size of the RecyclerView
         mRecyclerView.setHasFixedSize(true);
 
-        // use a linear layout manager
+        // Use a linear layout manager
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
@@ -62,68 +78,76 @@ public class MainActivity extends AppCompatActivity implements
                 mLayoutManager.getOrientation());
         mRecyclerView.addItemDecoration(dividerItemDecoration);
 
-        // specify an adapter (see also next example)
+        // Specify an adapter
         mAdapter = new SquawkAdapter();
         mRecyclerView.setAdapter(mAdapter);
 
-        // Load it up
+        // Start the loader
         getSupportLoaderManager().initLoader(LOADER_ID_MESSAGES, null, this);
 
-        // Get token and show it in the log
+        // Get token from the ID Service you created and show it in a log
         String token = FirebaseInstanceId.getInstance().getToken();
         String msg = getString(R.string.msg_token_fmt, token);
         Log.d(LOG_TAG, msg);
 
     }
 
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-
-        /* Use AppCompatActivity's method getMenuInflater to get a handle on the menu inflater */
         MenuInflater inflater = getMenuInflater();
-        /* Use the inflater's inflate method to inflate our visualizer_menu layout to this menu */
         inflater.inflate(R.menu.main_menu, menu);
-        /* Return true so that the visualizer_menu is displayed in the Toolbar */
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            Intent startSettingsActivity = new Intent(this, SettingsActivity.class);
-            startActivity(startSettingsActivity);
+        if (id == R.id.action_following_preferences) {
+            // Opens the following activity when the menu icon is pressed
+            Intent startFollowingActivity = new Intent(this, FollowingPreferenceActivity.class);
+            startActivity(startFollowingActivity);
             return true;
         }
         if (id == R.id.action_refresh) {
+            // Manually refereshes the data when the menu icon is pressed
             onRefresh();
             return true;
         }
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * Immediately refreshes the data by syncing it with the server
+     */
+    public void onRefresh() {
+        SyncSquawksIntentService.startImmediateSync(this);
+
+    }
+
+    /**
+     * Loader callbacks
+     */
+
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
 
         return new CursorLoader(this, SquawkProvider.SquawkMessages.CONTENT_URI,
-                MESSEGES_PROJECTION, null, null, null);
+                MESSAGES_PROJECTION, null, null, null);
     }
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-        if (data.getCount() == 0) SyncSquawksIntentService.startImmediateSync(this);
-        else mAdapter.swapCursor(data);
+        // If there is not data from the load, start an immediate sync to put data in the database
+        if (data.getCount() == 0) {
+            SyncSquawksIntentService.startImmediateSync(this);
+        } else {
+            mAdapter.swapCursor(data);
+        }
 
     }
 
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
         mAdapter.swapCursor(null);
-    }
-
-    public void onRefresh() {
-        SyncSquawksIntentService.startImmediateSync(this);
-
     }
 }

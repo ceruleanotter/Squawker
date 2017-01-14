@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".MainActivity">
     <item
-        android:id="@+id/action_settings"
+        android:id="@+id/action_following_preferences"
         android:icon="@drawable/ic_follow"
         android:orderInCategory="200"
         android:title="@string/menu_title_settings"

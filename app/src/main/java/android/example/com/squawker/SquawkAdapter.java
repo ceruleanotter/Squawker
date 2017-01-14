@@ -1,3 +1,19 @@
+/*
+* Copyright (C) 2017 The Android Open Source Project
+*
+* Licensed under the Apache License, Version 2.0 (the "License");
+* you may not use this file except in compliance with the License.
+* You may obtain a copy of the License at
+*
+*  	http://www.apache.org/licenses/LICENSE-2.0
+*
+* Unless required by applicable law or agreed to in writing, software
+* distributed under the License is distributed on an "AS IS" BASIS,
+* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+* See the License for the specific language governing permissions and
+* limitations under the License.
+*/
+
 package android.example.com.squawker;
 
 import android.database.Cursor;
@@ -12,29 +28,27 @@ import android.widget.TextView;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-
 /**
- * Created by lyla on 12/23/16.
+ * Converts cursor data for squawk messages into visible list items in a RecyclerView
  */
-
 public class SquawkAdapter extends RecyclerView.Adapter<SquawkAdapter.SquawkViewHolder> {
-
 
     private Cursor mData;
     private static SimpleDateFormat sDateFormat = new SimpleDateFormat("dd MMM");
 
-    private static final long DAY_MILLIS = 24 * 60 * 60 * 1000;
-    private static final long HOUR_MILLIS = 60 * 60 * 1000;
     private static final long MINUTE_MILLIS = 1000 * 60;
+    private static final long HOUR_MILLIS = 60 * MINUTE_MILLIS;
+    private static final long DAY_MILLIS = 24 * HOUR_MILLIS;
 
     @Override
     public SquawkViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.squawk_list_item, parent, false);
-        // set the view's size, margins, paddings and layout parameters
+
         SquawkViewHolder vh = new SquawkViewHolder(v);
 
-        // To update time stamps
+        // This handler regenerates the list every minute to update the timestamps on the list
+        // TODO is this a sensible way to update the minutes? I'll probably remove this entirely
         final Handler handler = new Handler();
 
         handler.postDelayed(new Runnable() {
@@ -59,6 +73,9 @@ public class SquawkAdapter extends RecyclerView.Adapter<SquawkAdapter.SquawkView
         long dateMillis = mData.getLong(MainActivity.COL_NUM_DATE);
         String date = "";
         long now = System.currentTimeMillis();
+
+        // Change how the date is displayed depending on whether it was written in the last minute,
+        // the hour, etc.
         if (now - dateMillis < (DAY_MILLIS)) {
             if (now - dateMillis < (HOUR_MILLIS)) {
                 long minutes = Math.round((now - dateMillis) / MINUTE_MILLIS);
@@ -72,12 +89,15 @@ public class SquawkAdapter extends RecyclerView.Adapter<SquawkAdapter.SquawkView
             date = sDateFormat.format(dateDate);
         }
 
+        // Add a dot to the date string
         date = "\u2022 " + date;
 
         holder.messageTextView.setText(message);
         holder.authorTextView.setText(author);
         holder.dateTextView.setText(date);
 
+        // Choose the correct, and in this case, locally stored asset for the instructor. If there
+        // were more users, you'd probably download this as part of the message.
         switch (author) {
             case "TheRealAsser":
                 holder.authorCircularImageView.setImageResource(R.drawable.asser);

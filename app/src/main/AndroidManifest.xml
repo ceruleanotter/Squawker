@@ -19,8 +19,8 @@
         </activity>
 
         <provider
-            android:name=".data.generated.SquawkProvider"
-            android:authorities="android.example.com.squawker.data.provider"
+            android:name=".provider.generated.SquawkProvider"
+            android:authorities="android.example.com.squawker.provider.provider"
             android:exported="false" />
 
         <!-- Service listening for any incoming messages -->
@@ -38,7 +38,7 @@
         </service>
 
         <activity
-            android:name=".settings.SettingsActivity"
+            android:name=".following.FollowingPreferenceActivity"
             android:parentActivityName=".MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
