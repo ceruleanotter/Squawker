@@ -16,10 +16,6 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-            <intent-filter>
-                <action android:name="SYNC_DATA_WITH_SQUAWKER" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
         </activity>
 
         <provider
@@ -51,8 +47,7 @@
 
         <service
             android:name=".sync.SyncSquawksIntentService"
-            android:exported="false">
-        </service>
+            android:exported="false"/>
     </application>
 
 </manifest>

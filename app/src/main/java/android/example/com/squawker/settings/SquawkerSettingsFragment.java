@@ -21,8 +21,6 @@ public class SquawkerSettingsFragment extends PreferenceFragmentCompat implement
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
         // Add visualizer preferences, defined in the XML file in res->xml->pref_visualizer
         addPreferencesFromResource(R.xml.preferences_squawker);
-
-
     }
 
     @Override
@@ -36,7 +34,7 @@ public class SquawkerSettingsFragment extends PreferenceFragmentCompat implement
                 Log.e("PreferenceFrag", "Subscribing to " + key);
             } else {
                 FirebaseMessaging.getInstance().unsubscribeFromTopic(key);
-                Log.e("PreferenceFrag", "UNsubscribing to " + key);
+                Log.e("PreferenceFrag", "Unsubscribing to " + key);
             }
         }
     }

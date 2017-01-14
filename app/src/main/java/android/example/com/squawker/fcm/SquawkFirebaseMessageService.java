@@ -18,6 +18,7 @@ import android.util.Log;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -25,6 +26,7 @@ import java.util.Map;
  */
 public class SquawkFirebaseMessageService extends FirebaseMessagingService {
 
+    private static final String TEST_DATA_KEY = "test";
     private static String LOG_TAG = SquawkFirebaseMessageService.class.getSimpleName();
 
     /**
@@ -53,33 +55,32 @@ public class SquawkFirebaseMessageService extends FirebaseMessagingService {
         Log.e(LOG_TAG, "From: " + remoteMessage.getFrom());
 
         // Check if message contains a data payload.
-        if (remoteMessage.getData().size() > 0) {
-            Log.e(LOG_TAG, "Message data payload: " + remoteMessage.getData());
-            sendNotification(remoteMessage.getData());
+
+        Map<String,String> data = remoteMessage.getData();
+
+        if (data.size() > 0) {
+            Log.e(LOG_TAG, "Message data payload: " + data);
+            sendNotification(data);
+
+            if (data.containsKey(TEST_DATA_KEY)) {
+                // Test Squawk
+                insertSquawk(data);
+            } else {
+                // Sync the server
+                SyncSquawksIntentService.startImmediateSync(this);
+            }
         }
 
-        // Check if message contains a notification payload.
-        /*if (remoteMessage.getNotification() != null) {
-            Log.e(LOG_TAG,
-                    "Message Notification Body: " + remoteMessage.getNotification().getBody());
-            Log.e(LOG_TAG,
-                    "Message Notification Title: " + remoteMessage.getNotification().getTitle());
-
-        }*/
-
-        //insertSquawk(remoteMessage.getData());
-        SyncSquawksIntentService.startImmediateSync(this);
-
     }
-//
-//    private void insertSquawk(Map<String, String> data) {
-//        ContentValues newMessage = new ContentValues();
-//        newMessage.put(SquawkContract.COLUMN_AUTHOR, data.get(SquawkContract.COLUMN_AUTHOR));
-//        newMessage.put(SquawkContract.COLUMN_MESSAGE,
-//                data.get(SquawkContract.COLUMN_MESSAGE).trim());
-//        newMessage.put(SquawkContract.COLUMN_DATE, data.get(SquawkContract.COLUMN_DATE));
-//        getContentResolver().insert(SquawkProvider.SquawkMessages.CONTENT_URI, newMessage);
-//    }
+
+    private void insertSquawk(Map<String, String> data) {
+        ContentValues newMessage = new ContentValues();
+        newMessage.put(SquawkContract.COLUMN_AUTHOR, data.get(SquawkContract.COLUMN_AUTHOR));
+        newMessage.put(SquawkContract.COLUMN_MESSAGE,
+                data.get(SquawkContract.COLUMN_MESSAGE).trim());
+        newMessage.put(SquawkContract.COLUMN_DATE, data.get(SquawkContract.COLUMN_DATE));
+        getContentResolver().insert(SquawkProvider.SquawkMessages.CONTENT_URI, newMessage);
+    }
 
 
     /**
