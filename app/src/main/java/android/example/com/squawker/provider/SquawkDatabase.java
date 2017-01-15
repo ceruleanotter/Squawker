@@ -26,7 +26,7 @@ import net.simonvt.schematic.annotation.Table;
 @Database(version = SquawkDatabase.VERSION)
 public class SquawkDatabase {
 
-    public static final int VERSION = 2;
+    public static final int VERSION = 3;
 
     @Table(SquawkContract.class)
     public static final String SQUAWK_MESSAGES = "squawk_messages";

@@ -17,6 +17,7 @@
 package android.example.com.squawker;
 
 import android.database.Cursor;
+import android.example.com.squawker.provider.SquawkContract;
 import android.example.com.squawker.views.CircularImageView;
 import android.os.Handler;
 import android.support.v7.widget.RecyclerView;
@@ -33,12 +34,14 @@ import java.util.Date;
  */
 public class SquawkAdapter extends RecyclerView.Adapter<SquawkAdapter.SquawkViewHolder> {
 
+
     private Cursor mData;
     private static SimpleDateFormat sDateFormat = new SimpleDateFormat("dd MMM");
 
     private static final long MINUTE_MILLIS = 1000 * 60;
     private static final long HOUR_MILLIS = 60 * MINUTE_MILLIS;
     private static final long DAY_MILLIS = 24 * HOUR_MILLIS;
+
 
     @Override
     public SquawkViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -99,19 +102,19 @@ public class SquawkAdapter extends RecyclerView.Adapter<SquawkAdapter.SquawkView
         // Choose the correct, and in this case, locally stored asset for the instructor. If there
         // were more users, you'd probably download this as part of the message.
         switch (author) {
-            case "TheRealAsser":
+            case SquawkContract.ASSER_NAME:
                 holder.authorCircularImageView.setImageResource(R.drawable.asser);
                 break;
-            case "TheRealCezanne":
+            case SquawkContract.CEZANNE_NAME:
                 holder.authorCircularImageView.setImageResource(R.drawable.cezanne);
                 break;
-            case "TheRealJlin":
+            case SquawkContract.JLIN_NAME:
                 holder.authorCircularImageView.setImageResource(R.drawable.jlin);
                 break;
-            case "TheRealLyla":
+            case SquawkContract.LYLA_NAME:
                 holder.authorCircularImageView.setImageResource(R.drawable.lyla);
                 break;
-            case "TheRealNikita":
+            case SquawkContract.NIKITA_NAME:
                 holder.authorCircularImageView.setImageResource(R.drawable.nikita);
                 break;
             default:

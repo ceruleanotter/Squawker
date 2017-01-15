@@ -18,15 +18,16 @@ package android.example.com.squawker;
 
 import android.content.Intent;
 import android.database.Cursor;
+import android.example.com.squawker.following.FollowingPreferenceActivity;
 import android.example.com.squawker.provider.SquawkContract;
 import android.example.com.squawker.provider.SquawkProvider;
-import android.example.com.squawker.following.FollowingPreferenceActivity;
 import android.example.com.squawker.sync.SyncSquawksIntentService;
 import android.os.Bundle;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.preference.PreferenceManager;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -56,6 +57,7 @@ public class MainActivity extends AppCompatActivity implements
     static final int COL_NUM_AUTHOR = 0;
     static final int COL_NUM_MESSAGE = 1;
     static final int COL_NUM_DATE = 2;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -120,9 +122,12 @@ public class MainActivity extends AppCompatActivity implements
      * Immediately refreshes the data by syncing it with the server
      */
     public void onRefresh() {
+        Log.d(LOG_TAG, "Refresh Pressed");
         SyncSquawksIntentService.startImmediateSync(this);
 
     }
+
+// TODO fix this/add comments
 
     /**
      * Loader callbacks
@@ -130,15 +135,17 @@ public class MainActivity extends AppCompatActivity implements
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-
+        String selection = SquawkContract.createSelectionForCurrentFollowers(
+                PreferenceManager.getDefaultSharedPreferences(this));
+        Log.d(LOG_TAG, "Selection is " + selection);
         return new CursorLoader(this, SquawkProvider.SquawkMessages.CONTENT_URI,
-                MESSAGES_PROJECTION, null, null, null);
+                MESSAGES_PROJECTION, selection, null, null);
     }
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
         // If there is not data from the load, start an immediate sync to put data in the database
-        if (data.getCount() == 0) {
+        if (data != null && data.getCount() == 0) {
             SyncSquawksIntentService.startImmediateSync(this);
         } else {
             mAdapter.swapCursor(data);

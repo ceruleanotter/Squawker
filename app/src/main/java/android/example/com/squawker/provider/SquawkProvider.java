@@ -31,7 +31,7 @@ import net.simonvt.schematic.annotation.TableEndpoint;
         database = SquawkDatabase.class)
 public final class SquawkProvider {
 
-    public static final String AUTHORITY = "android.example.com.squawker.data.provider";
+    public static final String AUTHORITY = "android.example.com.squawker.provider.provider";
 
 
     @TableEndpoint(table = SquawkDatabase.SQUAWK_MESSAGES)
