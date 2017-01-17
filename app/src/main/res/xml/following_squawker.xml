@@ -12,39 +12,39 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
     <SwitchPreferenceCompat
-        android:defaultValue="@bool/pref_default_message_subscription"
-        android:key="@string/pref_key_switch_asser"
-        android:summaryOff="@string/pref_summary_not_following"
-        android:summaryOn="@string/pref_summary_following"
-        android:title="@string/pref_title_switch_asser" />
+        android:defaultValue="@bool/follow_default_message_subscription"
+        android:key="@string/follow_key_switch_asser"
+        android:summaryOff="@string/follow_summary_not_following"
+        android:summaryOn="@string/follow_summary_following"
+        android:title="@string/follow_title_switch_asser" />
 
     <SwitchPreferenceCompat
-        android:defaultValue="@bool/pref_default_message_subscription"
-        android:key="@string/pref_key_switch_cezanne"
-        android:summaryOff="@string/pref_summary_not_following"
-        android:summaryOn="@string/pref_summary_following"
-        android:title="@string/pref_title_switch_cezanne" />
+        android:defaultValue="@bool/follow_default_message_subscription"
+        android:key="@string/follow_key_switch_cezanne"
+        android:summaryOff="@string/follow_summary_not_following"
+        android:summaryOn="@string/follow_summary_following"
+        android:title="@string/follow_title_switch_cezanne" />
 
     <SwitchPreferenceCompat
-        android:defaultValue="@bool/pref_default_message_subscription"
-        android:key="@string/pref_key_switch_jlin"
-        android:summaryOff="@string/pref_summary_not_following"
-        android:summaryOn="@string/pref_summary_following"
-        android:title="@string/pref_title_switch_jlin" />
+        android:defaultValue="@bool/follow_default_message_subscription"
+        android:key="@string/follow_key_switch_jlin"
+        android:summaryOff="@string/follow_summary_not_following"
+        android:summaryOn="@string/follow_summary_following"
+        android:title="@string/follow_title_switch_jlin" />
 
     <SwitchPreferenceCompat
-        android:defaultValue="@bool/pref_default_message_subscription"
-        android:key="@string/pref_key_switch_lyla"
-        android:summaryOff="@string/pref_summary_not_following"
-        android:summaryOn="@string/pref_summary_following"
-        android:title="@string/pref_title_switch_lyla" />
+        android:defaultValue="@bool/follow_default_message_subscription"
+        android:key="@string/follow_key_switch_lyla"
+        android:summaryOff="@string/follow_summary_not_following"
+        android:summaryOn="@string/follow_summary_following"
+        android:title="@string/follow_title_switch_lyla" />
 
     <SwitchPreferenceCompat
-        android:defaultValue="@bool/pref_default_message_subscription"
-        android:key="@string/pref_key_switch_nikita"
-        android:summaryOff="@string/pref_summary_not_following"
-        android:summaryOn="@string/pref_summary_following"
-        android:title="@string/pref_title_switch_nikita" />
+        android:defaultValue="@bool/follow_default_message_subscription"
+        android:key="@string/follow_key_switch_nikita"
+        android:summaryOff="@string/follow_summary_not_following"
+        android:summaryOn="@string/follow_summary_following"
+        android:title="@string/follow_title_switch_nikita" />
 
 
 

@@ -32,7 +32,6 @@ public class SyncSquawksIntentService extends IntentService {
 
     /**
      * Starts immediate synchronization with the server using this IntentService
-     * @param context
      */
     public static void startImmediateSync(@NonNull final Context context) {
         Intent intentToSyncImmediately = new Intent(context, SyncSquawksIntentService.class);

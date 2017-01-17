@@ -81,8 +81,8 @@ public class SquawkerSyncDatabaseTask {
 
     /**
      * Gets the message JSON from the Squawk messages site
+     *
      * @return A String containing all the messages in JSON
-     * @throws IOException
      */
     private static String getJsonResponseFromWeb() throws IOException {
         URL messagesUrl = new URL(SQUAWK_MESSAGES_URL);
@@ -107,9 +107,9 @@ public class SquawkerSyncDatabaseTask {
 
     /**
      * Converts message JSON to content values
+     *
      * @param json The JSON filled with squawks
      * @return A ContentValues array is all of the messages
-     * @throws JSONException
      */
     private static ContentValues[] parseContentValuesFromJson(String json) throws JSONException {
         JSONArray jsonSquawkArray = new JSONArray(json);

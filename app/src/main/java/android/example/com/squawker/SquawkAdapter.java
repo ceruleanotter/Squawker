@@ -39,7 +39,6 @@ public class SquawkAdapter extends RecyclerView.Adapter<SquawkAdapter.SquawkView
     private static SimpleDateFormat sDateFormat = new SimpleDateFormat("dd MMM");
 
 
-
     private static final long MINUTE_MILLIS = 1000 * 60;
     private static final long HOUR_MILLIS = 60 * MINUTE_MILLIS;
     private static final long DAY_MILLIS = 24 * HOUR_MILLIS;
@@ -48,7 +47,7 @@ public class SquawkAdapter extends RecyclerView.Adapter<SquawkAdapter.SquawkView
     @Override
     public SquawkViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.squawk_list_item, parent, false);
+                .inflate(R.layout.item_squawk_list, parent, false);
 
         SquawkViewHolder vh = new SquawkViewHolder(v);
 
@@ -105,22 +104,22 @@ public class SquawkAdapter extends RecyclerView.Adapter<SquawkAdapter.SquawkView
         // were more users, you'd probably download this as part of the message.
         switch (author) {
             case SquawkContract.ASSER_NAME:
-                holder.authorCircularImageView.setImageResource(R.drawable.asser);
+                holder.authorImageView.setImageResource(R.drawable.asser);
                 break;
             case SquawkContract.CEZANNE_NAME:
-                holder.authorCircularImageView.setImageResource(R.drawable.cezanne);
+                holder.authorImageView.setImageResource(R.drawable.cezanne);
                 break;
             case SquawkContract.JLIN_NAME:
-                holder.authorCircularImageView.setImageResource(R.drawable.jlin);
+                holder.authorImageView.setImageResource(R.drawable.jlin);
                 break;
             case SquawkContract.LYLA_NAME:
-                holder.authorCircularImageView.setImageResource(R.drawable.lyla);
+                holder.authorImageView.setImageResource(R.drawable.lyla);
                 break;
             case SquawkContract.NIKITA_NAME:
-                holder.authorCircularImageView.setImageResource(R.drawable.nikita);
+                holder.authorImageView.setImageResource(R.drawable.nikita);
                 break;
             default:
-                holder.authorCircularImageView.setImageResource(R.drawable.test);
+                holder.authorImageView.setImageResource(R.drawable.test);
         }
     }
 
@@ -139,15 +138,15 @@ public class SquawkAdapter extends RecyclerView.Adapter<SquawkAdapter.SquawkView
         final TextView authorTextView;
         final TextView messageTextView;
         final TextView dateTextView;
-        final ImageView authorCircularImageView;
+        final ImageView authorImageView;
 
         public SquawkViewHolder(View layoutView) {
             super(layoutView);
-            authorTextView = (TextView) layoutView.findViewById(R.id.text_view_author);
-            messageTextView = (TextView) layoutView.findViewById(R.id.text_view_message);
-            dateTextView = (TextView) layoutView.findViewById(R.id.text_view_date);
-            authorCircularImageView = (ImageView) layoutView.findViewById(
-                    R.id.circular_image_view_author);
+            authorTextView = (TextView) layoutView.findViewById(R.id.author_text_view);
+            messageTextView = (TextView) layoutView.findViewById(R.id.message_text_view);
+            dateTextView = (TextView) layoutView.findViewById(R.id.date_text_view);
+            authorImageView = (ImageView) layoutView.findViewById(
+                    R.id.author_image_view);
         }
     }
 }

@@ -35,6 +35,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.google.firebase.iid.FirebaseInstanceId;
 
@@ -64,7 +65,7 @@ public class MainActivity extends AppCompatActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view_squawks);
+        mRecyclerView = (RecyclerView) findViewById(R.id.squawks_recycler_view);
 
         // Use this setting to improve performance if you know that changes
         // in content do not change the layout size of the RecyclerView
@@ -89,7 +90,7 @@ public class MainActivity extends AppCompatActivity implements
 
         // Get token from the ID Service you created and show it in a log
         String token = FirebaseInstanceId.getInstance().getToken();
-        String msg = getString(R.string.msg_token_fmt, token);
+        String msg = getString(R.string.message_token_format, token);
         Log.d(LOG_TAG, msg);
 
     }
@@ -122,7 +123,7 @@ public class MainActivity extends AppCompatActivity implements
      * Immediately refreshes the data by syncing it with the server
      */
     public void onRefresh() {
-        Log.d(LOG_TAG, "Refresh Pressed");
+        Toast.makeText(this, R.string.toast_refresh, Toast.LENGTH_SHORT).show();
         SyncSquawksIntentService.startImmediateSync(this);
 
     }

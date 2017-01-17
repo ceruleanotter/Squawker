@@ -16,8 +16,6 @@
 package android.example.com.squawker.provider;
 
 import android.content.SharedPreferences;
-import android.example.com.squawker.R;
-import android.support.v7.preference.PreferenceManager;
 
 import net.simonvt.schematic.annotation.AutoIncrement;
 import net.simonvt.schematic.annotation.ConflictResolutionType;
@@ -69,32 +67,44 @@ public class SquawkContract {
 
     /**
      * Converts a name to the key used for topics
+     *
      * @param name String name of the author
      * @return The associated topic key
      */
     public static String nameToKey(String name) {
         switch (name) {
-            case ASSER_NAME: return ASSER_KEY;
-            case CEZANNE_NAME: return CEZANNE_KEY;
-            case JLIN_NAME: return JLIN_KEY;
-            case LYLA_NAME: return LYLA_KEY;
-            case NIKITA_NAME: return NIKITA_KEY;
+            case ASSER_NAME:
+                return ASSER_KEY;
+            case CEZANNE_NAME:
+                return CEZANNE_KEY;
+            case JLIN_NAME:
+                return JLIN_KEY;
+            case LYLA_NAME:
+                return LYLA_KEY;
+            case NIKITA_NAME:
+                return NIKITA_KEY;
         }
         return null;
     }
 
     /**
      * Converts a topic key to an author name
+     *
      * @param key String topic key of an author
      * @return The associated name of an author
      */
     public static String keyToName(String key) {
         switch (key) {
-            case ASSER_KEY: return ASSER_NAME;
-            case CEZANNE_KEY: return CEZANNE_NAME;
-            case JLIN_KEY: return JLIN_NAME;
-            case LYLA_KEY: return LYLA_NAME;
-            case NIKITA_KEY: return NIKITA_NAME;
+            case ASSER_KEY:
+                return ASSER_NAME;
+            case CEZANNE_KEY:
+                return CEZANNE_NAME;
+            case JLIN_KEY:
+                return JLIN_NAME;
+            case LYLA_KEY:
+                return LYLA_NAME;
+            case NIKITA_KEY:
+                return NIKITA_NAME;
         }
         return null;
     }
@@ -102,8 +112,6 @@ public class SquawkContract {
     /**
      * Creates a SQLite SELECTION parameter that filters just the rows for the authors you are
      * currently following.
-     * @param preferences
-     * @return
      */
     public static String createSelectionForCurrentFollowers(SharedPreferences preferences) {
 
