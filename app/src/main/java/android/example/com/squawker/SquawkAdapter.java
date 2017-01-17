@@ -18,12 +18,12 @@ package android.example.com.squawker;
 
 import android.database.Cursor;
 import android.example.com.squawker.provider.SquawkContract;
-import android.example.com.squawker.views.CircularImageView;
 import android.os.Handler;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
@@ -59,9 +59,9 @@ public class SquawkAdapter extends RecyclerView.Adapter<SquawkAdapter.SquawkView
             @Override
             public void run() {
                 SquawkAdapter.this.notifyDataSetChanged();
-                handler.postDelayed(this, 60 * 1000);
+                handler.postDelayed(this, MINUTE_MILLIS);
             }
-        }, 60 * 1000);
+        }, MINUTE_MILLIS);
         return vh;
     }
 
@@ -137,14 +137,14 @@ public class SquawkAdapter extends RecyclerView.Adapter<SquawkAdapter.SquawkView
         final TextView authorTextView;
         final TextView messageTextView;
         final TextView dateTextView;
-        final CircularImageView authorCircularImageView;
+        final ImageView authorCircularImageView;
 
         public SquawkViewHolder(View layoutView) {
             super(layoutView);
             authorTextView = (TextView) layoutView.findViewById(R.id.text_view_author);
             messageTextView = (TextView) layoutView.findViewById(R.id.text_view_message);
             dateTextView = (TextView) layoutView.findViewById(R.id.text_view_date);
-            authorCircularImageView = (CircularImageView) layoutView.findViewById(
+            authorCircularImageView = (ImageView) layoutView.findViewById(
                     R.id.circular_image_view_author);
         }
     }

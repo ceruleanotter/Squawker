@@ -67,6 +67,11 @@ public class SquawkContract {
             ASSER_KEY, CEZANNE_KEY, JLIN_KEY, LYLA_KEY, NIKITA_KEY
     };
 
+    /**
+     * Converts a name to the key used for topics
+     * @param name String name of the author
+     * @return The associated topic key
+     */
     public static String nameToKey(String name) {
         switch (name) {
             case ASSER_NAME: return ASSER_KEY;
@@ -78,6 +83,11 @@ public class SquawkContract {
         return null;
     }
 
+    /**
+     * Converts a topic key to an author name
+     * @param key String topic key of an author
+     * @return The associated name of an author
+     */
     public static String keyToName(String key) {
         switch (key) {
             case ASSER_KEY: return ASSER_NAME;
@@ -89,6 +99,12 @@ public class SquawkContract {
         return null;
     }
 
+    /**
+     * Creates a SQLite SELECTION parameter that filters just the rows for the authors you are
+     * currently following.
+     * @param preferences
+     * @return
+     */
     public static String createSelectionForCurrentFollowers(SharedPreferences preferences) {
 
         StringBuilder stringBuilder = new StringBuilder();

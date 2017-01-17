@@ -43,7 +43,7 @@ public class SquawkerSyncDatabaseTask {
     //        "message": "Meanwhile in Australia...",
     //        "date": 1484358455343
     //    }
-    private static final String SQUAWK_MESSAGES_URL = "http://192.168.0.108:8080/messages";
+    private static final String SQUAWK_MESSAGES_URL = "http://10.1.10.172:8080/messages";
 
     /**
      * Syncs the local phone data with the server. This is done by downloading all of the messages

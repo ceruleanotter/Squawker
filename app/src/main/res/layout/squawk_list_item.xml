@@ -20,11 +20,11 @@
     android:paddingStart="16dp"
     android:paddingTop="8dp">
 
-    <android.example.com.squawker.views.CircularImageView
+    <ImageView
         android:id="@+id/circular_image_view_author"
         android:layout_width="48dp"
         android:layout_height="48dp"
-        android:scaleType="centerInside"
+        android:scaleType="fitCenter"
         android:src="@drawable/lyla" />
 
     <TextView

@@ -127,7 +127,6 @@ public class MainActivity extends AppCompatActivity implements
 
     }
 
-// TODO fix this/add comments
 
     /**
      * Loader callbacks
@@ -135,6 +134,7 @@ public class MainActivity extends AppCompatActivity implements
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+        // This method generates a selection off of only the current followers
         String selection = SquawkContract.createSelectionForCurrentFollowers(
                 PreferenceManager.getDefaultSharedPreferences(this));
         Log.d(LOG_TAG, "Selection is " + selection);
