@@ -38,6 +38,8 @@ public class SquawkAdapter extends RecyclerView.Adapter<SquawkAdapter.SquawkView
     private Cursor mData;
     private static SimpleDateFormat sDateFormat = new SimpleDateFormat("dd MMM");
 
+
+
     private static final long MINUTE_MILLIS = 1000 * 60;
     private static final long HOUR_MILLIS = 60 * MINUTE_MILLIS;
     private static final long DAY_MILLIS = 24 * HOUR_MILLIS;

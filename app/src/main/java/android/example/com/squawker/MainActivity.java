@@ -139,7 +139,7 @@ public class MainActivity extends AppCompatActivity implements
                 PreferenceManager.getDefaultSharedPreferences(this));
         Log.d(LOG_TAG, "Selection is " + selection);
         return new CursorLoader(this, SquawkProvider.SquawkMessages.CONTENT_URI,
-                MESSAGES_PROJECTION, selection, null, null);
+                MESSAGES_PROJECTION, selection, null, SquawkContract.COLUMN_DATE + " DESC");
     }
 
     @Override
