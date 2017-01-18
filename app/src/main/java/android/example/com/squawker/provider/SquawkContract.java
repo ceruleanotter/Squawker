@@ -54,12 +54,15 @@ public class SquawkContract {
     public static final String JLIN_NAME = "TheRealJLin";
     public static final String LYLA_NAME = "TheRealLyla";
     public static final String NIKITA_NAME = "TheRealNikita";
+    public static final String TEST_ACCOUNT_NAME = "TestAccount";
+
 
     public static final String ASSER_KEY = "key_asser";
     public static final String CEZANNE_KEY = "key_cezanne";
     public static final String JLIN_KEY = "key_jlin";
     public static final String LYLA_KEY = "key_lyla";
     public static final String NIKITA_KEY = "key_nikita";
+
 
     public static final String[] INSTRUCTOR_KEYS = {
             ASSER_KEY, CEZANNE_KEY, JLIN_KEY, LYLA_KEY, NIKITA_KEY
@@ -116,14 +119,13 @@ public class SquawkContract {
     public static String createSelectionForCurrentFollowers(SharedPreferences preferences) {
 
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(COLUMN_AUTHOR + " IN  (");
-        String placeholder = "";
+        //Automatically add the test account
+        stringBuilder.append(COLUMN_AUTHOR).append(" IN  ('").append(TEST_ACCOUNT_NAME).append("'");
 
         for (String key : INSTRUCTOR_KEYS) {
             if (preferences.getBoolean(key, false)) {
-                stringBuilder.append(placeholder);
-                stringBuilder.append("'" + keyToName(key) + "'");
-                placeholder = ",";
+                stringBuilder.append(",");
+                stringBuilder.append("'").append(keyToName(key)).append("'");
             }
         }
         stringBuilder.append(")");
